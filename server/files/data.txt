@@ -1,0 +1,1 @@
+{"shoe_name":"slide","year_released":"2023-11-02","shoe_type":"sandal","brand":"adidas","price":"125","color":"brown"}

@@ -1,0 +1,68 @@
+html {
+    background: url("/images/khaled.webp") no-repeat center center fixed;
+    background-size: cover;
+  }
+
+  h1 {
+    color: #cc5500;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: aliceblue;
+  }
+  
+  nav li {
+    list-style-type: none;
+  }
+  
+  nav li a {
+    color: #cc5500;
+  }
+
+  form{
+    margin:10% auto;
+    width: auto;
+    padding: 50px;
+    
+    background-color: aliceblue;
+    
+  }
+
+div#form_control {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form_group{
+    margin-bottom: 10px;
+}
+
+label{
+    display: inline-block;
+    width: 250px;
+    text-align:end;
+    margin-right: 10px;
+}
+
+.button_container{
+    margin-top: 20px;
+}
+
+
+  .button {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #cc5500;
+    color: #fff;
+    padding: 10px 10px;
+    font-size: 16px;
+    border-radius: 10px;
+  }
+
+
