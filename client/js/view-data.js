@@ -4,9 +4,7 @@
 
 $(document).ready(function () {
   getData();
-})
-
-
+});
 
 // function main() {
 //   //   console.log(data);
@@ -15,7 +13,6 @@ $(document).ready(function () {
 // }
 
 function getData() {
-  
   $.ajax({
     url: "http://localhost:5000" + "/get-records",
     type: "get",
@@ -46,27 +43,32 @@ function showTable(data) {
     htmlString += "<td>" + data.closetData[i].brand + "</td>";
     htmlString += "<td>" + data.closetData[i].price + "</td>";
     htmlString += "<td>" + data.closetData[i].color + "</td>";
-    htmlString += "<td>" + "<button class='btn btn-sm edit_btn delete-button' " + "data-id='" + data.closetData[i].id + "'>DELETE</button>" + "</td>";
+    htmlString +=
+      "<td>" +
+      "<button class='btn btn-sm edit_btn delete-button' " +
+      "data-id='" +
+      data.closetData[i].id +
+      "'>DELETE</button>" +
+      "</td>";
 
     htmlString += "</tr>";
-    console.log("ID: " + data.closetData[i].id )
   }
-  
-    
+
   $("#table_body").html(htmlString);
+  deleteButton();
 }
 
-function deleteRecord(shoeId){
+function deleteRecord(shoeId) {
   $.ajax({
     url: "http://localhost:5000" + "/delete-records",
     type: "delete",
-    data: {id: shoeId},
+    data: { id: shoeId },
     success: function (response) {
       var data = JSON.parse(response);
-      console.log(deleteID);
 
       if (data.msg === "SUCCESS") {
         console.log("Record deleted");
+        getData();
       } else {
         console.log(data.msg);
       }
@@ -77,7 +79,10 @@ function deleteRecord(shoeId){
   });
 }
 
-$(".delete-button").click(function(){
-  var deleteID = this.getAttribute("data-id");
-  deleteRecord(deleteID);
-})
+function deleteButton() {
+  $(".delete-button").click(function () {
+    var deleteID = this.getAttribute("data-id");
+    deleteRecord(deleteID);
+    location.reload();
+  });
+}
