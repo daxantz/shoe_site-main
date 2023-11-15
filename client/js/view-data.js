@@ -2,25 +2,30 @@
 
 // var jsonObject = JSON.parse(data);
 
-getData();
+$(document).ready(function () {
+  getData();
+})
 
-function main() {
-  //   console.log(data);
-  console.log(jsonObject);
-  showTable();
-}
+
+
+// function main() {
+//   //   console.log(data);
+//   console.log(jsonObject);
+//   showTable();
+// }
 
 function getData() {
+  
   $.ajax({
     url: "http://localhost:5000" + "/get-records",
     type: "get",
     success: function (response) {
       var data = JSON.parse(response);
-      console.log("hello");
+      console.log(data);
 
       if (data.msg === "SUCCESS") {
         console.log(response);
-        showTable(data.closetData);
+        showTable(data);
       } else {
         console.log(data.msg);
       }
@@ -31,19 +36,48 @@ function getData() {
   });
 }
 
-function showTable(jsonObject) {
+function showTable(data) {
   var htmlString = "";
-  for (var i = 0; i < jsonObject.length; i++) {
+  for (var i = 0; i < data.closetData.length; i++) {
     htmlString += "<tr>";
-    htmlString += "<td>" + jsonObject[i].shoe_name + "</td>";
-    htmlString += "<td>" + jsonObject[i].year_released + "</td>";
-    htmlString += "<td>" + jsonObject[i].shoe_type + "</td>";
-    htmlString += "<td>" + jsonObject[i].brand + "</td>";
-    htmlString += "<td>" + jsonObject[i].price + "</td>";
-    htmlString += "<td>" + jsonObject[i].color + "</td>";
+    htmlString += "<td>" + data.closetData[i].shoe_name + "</td>";
+    htmlString += "<td>" + data.closetData[i].year_released + "</td>";
+    htmlString += "<td>" + data.closetData[i].shoe_type + "</td>";
+    htmlString += "<td>" + data.closetData[i].brand + "</td>";
+    htmlString += "<td>" + data.closetData[i].price + "</td>";
+    htmlString += "<td>" + data.closetData[i].color + "</td>";
+    htmlString += "<td>" + "<button class='btn btn-sm edit_btn delete-button' " + "data-id='" + data.closetData[i].id + "'>DELETE</button>" + "</td>";
 
     htmlString += "</tr>";
+    console.log("ID: " + data.closetData[i].id )
   }
-
-  $("#shoe_table").html(htmlString);
+  
+    
+  $("#table_body").html(htmlString);
 }
+
+function deleteRecord(shoeId){
+  $.ajax({
+    url: "http://localhost:5000" + "/delete-records",
+    type: "delete",
+    data: {id: shoeId},
+    success: function (response) {
+      var data = JSON.parse(response);
+      console.log(deleteID);
+
+      if (data.msg === "SUCCESS") {
+        console.log("Record deleted");
+      } else {
+        console.log(data.msg);
+      }
+    },
+    error: function (err) {
+      console.log(err);
+    },
+  });
+}
+
+$(".delete-button").click(function(){
+  var deleteID = this.getAttribute("data-id");
+  deleteRecord(deleteID);
+})

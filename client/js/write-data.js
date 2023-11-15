@@ -22,22 +22,26 @@ $("#Submit").click(function () {
     success: function (response) {
       var data = JSON.parse(response);
       if (data.msg === "SUCCESS") {
+        clearData();
+        console.log("data cleared")
         alert("Data successfully saved");
+        
       } else {
         console.log(data.msg);
       }
     },
     error: function (err) {
       console.log(err);
-    },
+    }
   });
 });
 
-$("#clear").click(function () {
-  $("shoe_name").val("");
-  $("year_released").val("");
-  $("shoe_type").val("");
-  $("brand").val("");
-  $("price").val("");
-  $("color").val("");
-});
+function clearData() {
+  $("#shoe_name").val("");
+  $("#year_released").val("");
+  $("#shoe_type").val("");
+  $("#brand").val("");
+  $("#price").val("");
+  $("#color").val("");
+}
+
