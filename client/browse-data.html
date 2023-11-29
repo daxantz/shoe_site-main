@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse</title>
+    <link rel="stylesheet" href="/client/css/browse-data.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="/client/js/browse-data.js"></script>
+    
+
+</head>
+<body data-ng-app="browseDataApp" data-ng-controller="browseDataController">
+    <div id="title"><h1>Browse Data</h1></div>
+    <nav>
+      <li><a href="/">Home</a></li>
+      <li><a href="/write-data">Enter Data</a></li>
+      <li><a href="/view-data">View Data</a></li>
+      <li><a href="/browse-data">Browse Data</a></li>
+    </nav>
+    <div class="container" style="font-size: 30px">
+        <div >
+            <div>
+                <label for="name">Shoe name:</label>
+                <label style="margin-left: 30px; color: blue" id="name"
+                  >{{obj.shoe_name}}</label
+                >
+              </div>
+              <div>
+                <label for="release">Shoe release date:</label>
+                <label style="margin-left: 30px; color: blue" id="release"
+                  >{{obj.year_released}}</label
+                >
+              </div>
+              <div>
+                <label for="type">Shoe type:</label>
+                <label style="margin-left: 30px; color: blue" id="type"
+                  >{{obj.shoe_type}}</label
+                >
+              </div>
+              <div>
+                <label for="brand">Shoe brand:</label>
+                <label style="margin-left: 30px; color: blue" id="brand"
+                  >{{obj.brand}}</label
+                >
+              </div>
+              <div>
+                <label for="price">Shoe price:</label>
+                <label style="margin-left: 30px; color: blue" id="price"
+                  >{{obj.price}}</label
+                >
+              </div>
+              <div>
+                  <label for="color">Shoe color:</label>
+                  <label style="margin-left: 30px; color: blue" id="color"
+                    >{{obj.color}}</label
+                  >
+                </div>
+        </div>
+        
+      </div>
+      <div class="container">
+          <div class="buttonHolder" style="float: left">
+            <button
+              id="previous"
+              data-ng-click="changeShoe(-1)"
+              data-ng-hide="hidePrev"
+            >
+              &lt Previous Shoe
+            </button>
+          </div>
+          <div class="buttonHolder" style="float: left">
+            <button
+              id="next"
+              data-ng-click="changeShoe(1)"
+              data-ng-hide="showNext"
+            >
+              Next Shoe &gt
+            </button>
+          </div>
+        </div>
+
+    
+</body>
+</html>

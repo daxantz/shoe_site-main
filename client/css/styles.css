@@ -3,6 +3,10 @@ html {
   background-size: cover;
 }
 
+body {
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
 h1 {
   color: #cc5500;
   text-align: center;
@@ -31,6 +35,10 @@ p {
 
 div:nth-of-type(2) {
   background-color: gray;
-  margin-top: 100px;
+  
   padding: 1px;
 }
+
+
+
+
