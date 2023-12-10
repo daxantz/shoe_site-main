@@ -47,7 +47,7 @@ function showTable(data) {
       "<td>" +
       "<button class='btn btn-sm edit_btn delete-button' " +
       "data-id='" +
-      data.closetData[i].id +
+      data.closetData[i]["_id"] +
       "'>DELETE</button>" +
       "</td>";
 
