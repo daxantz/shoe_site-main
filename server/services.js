@@ -96,6 +96,93 @@ var services = function (app) {
       }
     );
   });
+
+  app.get("/get-shoesByType", function (req, res){
+    var type = req.query.type;
+    var search = type === "" ? {} : {type: type};
+    console.log(search)
+
+    MongoClient.connect(dbURL, {useUnifiedTopology: true}, function (err, client){
+      if(err) {
+        return res.status(201).send(JSON.stringify({msg: err}));
+      } else {
+        var dbo = client.db("shoes");
+
+        dbo.collection("shoedata").find(search).toArray(function (err, data){
+          if(err) {
+            return res.status(201).send(JSON.stringify({msg: err}));
+          } else {
+            return res.status(201).send(JSON.stringify({msg: "SUCCESS", closetData: data}));
+          }
+        })
+      }
+    })
+  })
+
+
+  app.put("/update-shoe", function (req, res){
+    var shoeID = req.body.ID;
+    var name = req.body.name;
+    var releaseDate = req.body.releaseDate;
+    var type = req.body.type;
+    var brand = req.body.brand;
+    var price = req.body.price;
+    var color = req.body.color;
+    var s_id = new ObjectId(shoeID);
+    var search = {_id : s_id};
+
+    var updateData = {
+      $set: {
+        shoe_name: name,
+        year_released: releaseDate,
+        shoe_type: type,
+        brand: brand,
+        price: price,
+        color: color
+      }
+    }
+
+    MongoClient.connect(dbURL, {useUnifiedTopology: true}, function(err, client){
+      if(err) {
+        return res.status(201).send(JSON.stringify({msg: err}));
+      } else {
+        var dbo = client.db("shoes")
+
+        dbo.collection("shoedata").updateOne(search, updateData, function (err){
+          if(err) {
+            return res.status(201).send(JSON.stringify({msg: err}));
+          } else {
+            return res.status(201).send(JSON.stringify({msg: "SUCCESS"}));
+          }
+        })
+      }
+    })
+
+
+  })
+
+  app.delete("/delete-shoe", function (req, res){
+    var shoeID = req.query.shoeID;
+    var s_id = new ObjectId(shoeID);
+    var search = {_id: s_id}
+
+    MongoClient.connect(dbURL, {useUnifiedTopology: true}, function(err, client){
+      if(err) {
+        return res.status(201).send(JSON.stringify({msg: err}));
+      } else {
+        var dbo = client.db("shoes")
+
+        dbo.collection("shoedata").deleteOne(search,function (err){
+          if(err) {
+            return res.status(201).send(JSON.stringify({msg: err}));
+          } else {
+            return res.status(201).send(JSON.stringify({msg: "SUCCESS"}));
+          }
+        })
+      }
+    })
+
+  })
 };
 
 module.exports = services;
